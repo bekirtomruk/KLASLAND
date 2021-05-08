@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/">
+        <file>qtquickcontrols2.conf</file>
+        <file>images/calendar-animation.gif</file>
+        <file>giris.qml</file>
+        <file>main.qml</file>
+    </qresource>
+</RCC>
