@@ -592,7 +592,7 @@ ApplicationWindow {
         MessageDialog {
             id: girdilerEksikDialog
             title: "Bilgiler Eksik"
-            text: "Bruh Napiyosun Sen Ya Adam Gibi Gir."
+            text: "Bro Napiyosun Sen Ya Adam Gibi Gir."
             standardButtons: MessageDialog.Ok
         }
 

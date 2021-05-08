@@ -70,7 +70,7 @@ ApplicationWindow {
 
     MessageDialog {
         id: loginTrue
-        title: "Hoşgeldiniz"
+        title: "Hoşgeldiniz!"
         text: "Sisteme Giriş Yapılıyor."
         standardButtons: MessageDialog.Ok
         onAccepted: {
