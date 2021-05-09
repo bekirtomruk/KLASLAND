@@ -56,30 +56,31 @@ ApplicationWindow {
             }
 
             RowLayout {
-                Item {
-                    width: 100
+                Label {
+                    id: durum
+                    Layout.fillWidth: true
+                    Layout.minimumWidth: 80
                 }
                 Button {
+                    id : okey
                     Layout.fillWidth: true
                     text: qsTr("Giriş")
-                    onClicked: loginPage()
+                    onClicked: {
+                        loading.running = true
+                        loginPage()
+                    }
                 }
             }
         }
     }
 
-    MessageDialog {
-        id: loginTrue
-        title: "Hoşgeldiniz!"
-        text: "Sisteme Giriş Yapılıyor."
-        standardButtons: MessageDialog.Ok
-        onAccepted: {
-            var component = Qt.createComponent("main.qml")
-            var window = component.createObject(giris)
-            giris.hide()
-            window.show()
-        }
+    BusyIndicator {
+        id: loading
+        x: 105
+        y: 60
+        running: false
     }
+
     MessageDialog {
         id: loginNo
         title: "Hata"
@@ -88,6 +89,7 @@ ApplicationWindow {
         onAccepted: {
             userName.clear()
             password.clear()
+            loading.running = false
         }
     }
 
@@ -96,9 +98,27 @@ ApplicationWindow {
         var pass = password.text
 
         if (user === "klasland" && pass === "klasland123") {
-            loginTrue.open()
+            durum.text = "Giriş başarılı..."
+            loading.running = true
+            var component = Qt.createComponent("main.qml", Component.Asynchronous, giris)
+            component.statusChanged.connect(function() {
+                if (component.status === Component.Ready) {
+                    var window = component.createObject(giris)
+                    if (window === null) {
+                        console.log("Error creating object");
+                    } else {
+                        giris.hide()
+                        window.show()
+                    }
+                    loading.running = false
+                } else if (component.status === Component.Error) {
+                    console.log("Error loading component:", component.errorString());
+                    loading.running = false
+                }
+            });
         } else {
             loginNo.open()
         }
     }
+
 }

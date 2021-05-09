@@ -602,19 +602,6 @@ ApplicationWindow {
 
             Button {
                 Layout.fillWidth: true
-                text: qsTr("Fatura Bulma")
-                font.bold: true
-                onClicked: {
-                    var component = Qt.createComponent("giris.qml")
-                    var window = component.createObject(applicationWindow)
-                    window.applicationWindow = applicationWindow
-                    window.show()
-                    applicationWindow.hide()
-                }
-            }
-
-            Button {
-                Layout.fillWidth: true
                 text: qsTr("İşlemi Tamamla")
                 font.bold: true
                 onClicked: {
